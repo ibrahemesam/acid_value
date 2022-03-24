@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <link rel="icon" type="image/png" href="https://cdn.iconscout.com/icon/free/png-256/capsule-1502565-1272776.png"/>
+    <title>Borax Calculator</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/darkreader@4.9.46/darkreader.js"></script>
+    <script>DarkReader.enable();</script>
+    <style>
+      body, html, #main >div {
+        min-height: 100vh;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main" class="container bg-dark col-12 h-100">
+      <div class="row h-100 justify-content-center align-items-center">
+        <div class="p-0 m-0">
+            <div class="pl-5 alert alert-info alert-dismissible fade show MT-2">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong class="ml-4 border border-success rounded p-2">made with ❤️ by ibrahem</strong>
+            </div>
+            
+            <div id="Fats" class="p-3">
+
+            </div>
+            <div id="fat_template" hidden="">
+              <div name="fat" class="align-items-center display-content-center">
+                <labal style="float:left" class="btn btn-success">Fat:</labal><input type="text" dir="auto" id="name" class="form-control w-50 mr-1 ml-1" style="float:left !important">
+                <button onclick="this.parentNode.remove();" class="btn btn-danger">Remove Fat</button><p class="m-0 mt-1"></p>
+                <label style="float:left" class="btn btn-success mb-1">Acid Value:</label><input type="number" dir="auto" id="acid_value" class="form-control col-8 mr-1 ml-1" style="float:left !important"><p class="m-0 mt-1"></p>
+                <div class="m-0 b-0 input-group col-12"><label style="" class="btn btn-success col-3" for="weight">Weight:</label>
+                <input type="number" dir="auto" id="weight" class="rounded form-control col-12 mr-1 ml-1" name="weight"></div>
+              </div>
+            </div>
+          <div class="m-0 p-0 d-block" style="
+          display: block !important;
+      ">
+      <div class="p-0 m-0 d-flex">
+            <button onclick="add_new_fat();" class="btn btn-primary w-100">Add new Fat</button>
+            <button onclick="calc_all_fats();" class="btn btn-success w-100 mr-1 ml-1">Calc. Borax</button>
+          <a class="btn btn-danger w-100" href="https://web.facebook.com/ibrahemmosa3425/">Report Bug 🔗</a>
+          </div></div>
+              
+      <div class="d-block font-weight-bold text-light row h-100 justify-content-center align-items-center border border-primary rounded mt-1" style="
+      text-align: center;">
+          <div class="p-1 m-1 mt-2">
+            <div class="m-0 p-0" id="result_title" style="display: none;">
+              <Strong class="font-weight-bold d-block">~: Calculation :~</Strong>
+              <Strong class="font-weight-bold d-block">=================</Strong>
+            </div>
+            <div id="result"></div>
+          </div>
+      </div>
+    </div>
+  </div>
+      </div>
+    <script type="text/javascript">
+      mol_wt = {
+        NaOH: 40,
+        KOH: 56.11,
+        Borax: 381.43
+      }
+      fat_template = document.getElementById('fat_template').innerHTML;
+      fats = document.getElementById('Fats');
+      result = document.getElementById('result');
+      last_printed = '';
+      result_title = document.getElementById('result_title');
+      // main = document.getElementById('main');
+      function _print(txt){
+        if (txt == last_printed && last_printed == '______________________________________________'){
+          return;
+        }
+        last_printed = txt;
+        var label = document.createElement('label');
+        label.innerHTML = txt;
+        label.style.display = 'block';
+        result.appendChild(label);
+      }
+      function add_new_fat(){
+        var div = document.createElement('div');
+        div.innerHTML = fat_template;
+        fats.appendChild(div.children[0]);
+      }
+      add_new_fat();
+      function KOH_to_NaOH(KOH){
+        //note: KOH weight is in grams
+        //print الخطوات
+        // 1mol NaOH ===> 1mol KOH
+        _print('1mol NaOH ===> 1mol KOH');
+        // 1 x 40 g NaOH ===> 56.11 g KOH
+        _print('1 x 40 g NaOH ===> 56.11 g KOH');
+        // X g NaOH ===> {KOH}g KOH
+        _print(`X g NaOH ===> ${KOH}g KOH`);
+        var eq_NaOH = (mol_wt.NaOH*KOH)/mol_wt.KOH;
+        // NaOH = (1 x {mol_wt.NaOH} x {KOH}) / {mol_wt.KOH} = {eq_KOH} g
+        _print(`NaOH = (1 x ${mol_wt.NaOH} x ${KOH}) / ${mol_wt.KOH} = ${eq_NaOH} g`);
+        _print('______________________________________________');
+        return eq_NaOH;
+      }
+      function NaOH_to_Borax(NaOH){
+        //note: NaOH weight is in grams
+        //print الخطوات
+        // 1mol Borax ===> 2 mol NaOH
+        _print('1mol Borax ===> 2 mol NaOH');
+        // 1 x 381.43 g Borax ===> 2 x 40 g NaOH
+        _print('1 x 381.43 g Borax ===> 2 x 40 g NaOH');
+        // X g Borax ===> {NaOH}g NaOH
+        _print(`X g Borax ===> ${NaOH}g NaOH`);
+        var eq_Borax = (mol_wt.Borax*NaOH)/(2*mol_wt.NaOH);
+        // Borax = (1 x {mol_wt.Borax} x {NaOH})/(2 x {mol_wt.NaOH}) = {eq_Borax} g
+        _print(`Borax = (1 x ${mol_wt.Borax} x ${NaOH})/(2 x ${mol_wt.NaOH}) = ${eq_Borax} g`);
+        _print('______________________________________________');
+        return eq_Borax;
+      }
+      function Fat_to_KOH(fat_name, fat_wt, acid_value){
+        //note: fat_wt weight is in grams
+        //TODO: print الخطوات
+        // 1g {fat_name} ===> {acid_value}mg KOH
+        _print(`1g ${fat_name} ===> ${acid_value}mg KOH`);
+        // {fat_wt}g {fat_name} ===> X mg KOH
+        _print(`${fat_wt}g ${fat_name} ===> X mg KOH`);
+        var eq_KOH = fat_wt*acid_value*(10**-3);
+        // KOH = ({acid_value} x {fat_wt}) / 1 = {eq_KOH} mg
+        _print(`KOH = (${acid_value} x ${fat_wt}) / 1 = ${eq_KOH} mg`);
+        _print('______________________________________________');
+        return eq_KOH;
+        //returns KOH in grams
+      }
+      function calc_all_fats(){
+        result.innerHTML = '';
+        result_title.style.display = 'block';
+        // main.setAttribute('style', 'height: 100% important;');
+        var fats_divs = fats.querySelectorAll('div[name="fat"]');
+        //first: for multiple fats: get the overall total KOH weight
+        var KOHs = [];
+        for (let i = 0; i<fats_divs.length; i++){
+          var 
+            fat_div = fats_divs[i],
+            fat_name = fat_div.querySelector('input[id="name"]').value.trim(),
+            acid_value = fat_div.querySelector('input[id="acid_value"]').value.trim(),
+            fat_weight = fat_div.querySelector('input[id="weight"]').value.trim();
+            if ([fat_name, acid_value, fat_weight].includes('')) {
+              result.innerHTML = '';
+              result_title.style.display = 'none';
+              // main.setAttribute('style', 'height: 100vh important;');
+              alert('Please Complete All Input Fields!');
+              return;
+            }
+          KOHs.push(Fat_to_KOH(fat_name, Number(fat_weight), Number(acid_value)));
+        }
+        //print الخطوات
+        var total_KOH = 0;
+        KOHs.forEach((gKOH)=>{total_KOH+=gKOH});
+        if (KOHs.length > 1){
+          //print total KOH = _ + _ + _ + _ = ...g
+          var _total_KOH_txt = 'Total KOH = ';
+          for (let i = 0; i < KOHs.length; i++) {
+            var gKOH = KOHs[i];
+            _total_KOH_txt += `${gKOH} + `;
+          }
+          _total_KOH_txt += `= ${total_KOH} g KOH`;
+          _total_KOH_txt = _total_KOH_txt.replace('+ =', '=');
+          _print(_total_KOH_txt);
+          _print('______________________________________________');
+        }
+        
+
+        //print: Equivalent NaOH:-
+        _print('Equivalent NaOH:-');
+        var total_NaOH = KOH_to_NaOH(total_KOH);
+        _print('______________________________________________');
+        //print: Equivalent Borax:-
+        _print('Equivalent Borax:-');
+        var total_borax = NaOH_to_Borax(total_NaOH);
+        // print result: So, Total Borax weight = {total_borax}g
+      }
+      
+    </script>
+  </body>
+</html>
