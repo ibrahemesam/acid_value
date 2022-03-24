@@ -92,12 +92,12 @@
       function KOH_to_NaOH(KOH){
         //note: KOH weight is in grams
         //print الخطوات
-        // 1mol NaOH ===> 1mol KOH
-        _print('1mol NaOH ===> 1mol KOH');
+        // 1 mol NaOH ===> 1 mol KOH
+        _print('1 mol NaOH ===> 1 mol KOH');
         // 1 x 40 g NaOH ===> 56.11 g KOH
         _print('1 x 40 g NaOH ===> 56.11 g KOH');
-        // X g NaOH ===> {KOH}g KOH
-        _print(`X g NaOH ===> ${KOH}g KOH`);
+        // X g NaOH ===> {KOH} g KOH
+        _print(`X g NaOH ===> ${KOH} g KOH`);
         var eq_NaOH = (mol_wt.NaOH*KOH)/mol_wt.KOH;
         // NaOH = (1 x {mol_wt.NaOH} x {KOH}) / {mol_wt.KOH} = {eq_KOH} g
         _print(`NaOH = (1 x ${mol_wt.NaOH} x ${KOH}) / ${mol_wt.KOH} = ${eq_NaOH} g`);
@@ -107,12 +107,12 @@
       function NaOH_to_Borax(NaOH){
         //note: NaOH weight is in grams
         //print الخطوات
-        // 1mol Borax ===> 2 mol NaOH
-        _print('1mol Borax ===> 2 mol NaOH');
+        // 1 mol Borax ===> 2 mol NaOH
+        _print('1 mol Borax ===> 2 mol NaOH');
         // 1 x 381.43 g Borax ===> 2 x 40 g NaOH
         _print('1 x 381.43 g Borax ===> 2 x 40 g NaOH');
         // X g Borax ===> {NaOH}g NaOH
-        _print(`X g Borax ===> ${NaOH}g NaOH`);
+        _print(`X g Borax ===> ${NaOH} g NaOH`);
         var eq_Borax = (mol_wt.Borax*NaOH)/(2*mol_wt.NaOH);
         // Borax = (1 x {mol_wt.Borax} x {NaOH})/(2 x {mol_wt.NaOH}) = {eq_Borax} g
         _print(`Borax = (1 x ${mol_wt.Borax} x ${NaOH})/(2 x ${mol_wt.NaOH}) = ${eq_Borax} g`);
@@ -122,10 +122,10 @@
       function Fat_to_KOH(fat_name, fat_wt, acid_value){
         //note: fat_wt weight is in grams
         //TODO: print الخطوات
-        // 1g {fat_name} ===> {acid_value}mg KOH
-        _print(`1g ${fat_name} ===> ${acid_value}mg KOH`);
-        // {fat_wt}g {fat_name} ===> X mg KOH
-        _print(`${fat_wt}g ${fat_name} ===> X mg KOH`);
+        // 1 g {fat_name} ===> {acid_value} mg KOH
+        _print(`1 g ${fat_name} ===> ${acid_value} mg KOH`);
+        // {fat_wt} g {fat_name} ===> X mg KOH
+        _print(`${fat_wt} g ${fat_name} ===> X mg KOH`);
         var eq_KOH = fat_wt*acid_value*(10**-3);
         // KOH = ({acid_value} x {fat_wt}) / 1 = {eq_KOH} mg
         _print(`KOH = (${acid_value} x ${fat_wt}) / 1 = ${eq_KOH} mg`);
@@ -165,7 +165,7 @@
             var gKOH = KOHs[i];
             _total_KOH_txt += `${gKOH} + `;
           }
-          _total_KOH_txt += `= ${total_KOH} g KOH`;
+          _total_KOH_txt += `= ${total_KOH} mg KOH`;
           _total_KOH_txt = _total_KOH_txt.replace('+ =', '=');
           _print(_total_KOH_txt);
           _print('______________________________________________');
@@ -174,7 +174,7 @@
 
         //print: Equivalent NaOH:-
         _print('Equivalent NaOH:-');
-        var total_NaOH = KOH_to_NaOH(total_KOH);
+        var total_NaOH = KOH_to_NaOH(total_KOH*(10**-3));
         _print('______________________________________________');
         //print: Equivalent Borax:-
         _print('Equivalent Borax:-');
